@@ -171,7 +171,8 @@ function setupEventListeners() {
   elements.showSideBarBtn.addEventListener ('click',() => toggleSidebar(true));
 
   // Theme switch event listener
-  elements.themeSwitch.addEventListener('change', toggleTheme);
+  elements.themeSwitch.addEventListener('click', (event) => toggleTheme(event));
+
 
   // Show Add New Task Modal event listener
   elements.createNewTaskBtn.addEventListener('click', () => {
