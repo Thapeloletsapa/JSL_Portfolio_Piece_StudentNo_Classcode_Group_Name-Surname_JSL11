@@ -224,21 +224,29 @@ function toggleSidebar(show) {
   elements.sideBar.style.display = show ? 'block' : 'none';
 }
 
-function toggleTheme() {
- 
+function toggleTheme(event) {
+  document.body.classList.toggle('light-theme');
 }
 
 
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
-  
+  elements.editTaskTitleInput.value = task.title;
+  elements.editTaskDescInput.value = task.description;
+  const selectedStatus = elements.editSelectStatus.querySelector(`option[value="${task.status}"]`);
+  selectedStatus.selected = true;
 
   // Get button elements from the task modal
+  const saveEditBtn = document.getElementById('save-task-changes-btn'),
+  deleteTaskBtn = document.getElementById('delete-task-btn');
 
 
   // Call saveTaskChanges upon click of Save Changes button
- 
+  saveEditBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    saveTaskChanges(task.id);
+  });
 
   // Delete task using a helper function and close the task modal
 
