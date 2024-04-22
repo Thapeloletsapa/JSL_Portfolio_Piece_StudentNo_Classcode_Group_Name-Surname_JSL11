@@ -206,7 +206,7 @@ function addTask(event) {
       board : activeBoard,
     };
 
-    
+
     const newTask = createNewTask(task);
     if (newTask) {
       addTaskToUI(newTask);
@@ -220,6 +220,8 @@ function addTask(event) {
 
 function toggleSidebar(show) {
  
+  elements.showSideBarBtn.style.display = show ? 'none' : 'block';
+  elements.sideBar.style.display = show ? 'block' : 'none';
 }
 
 function toggleTheme() {
