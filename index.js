@@ -267,7 +267,6 @@ function openEditTaskModal(task) {
   const saveEditBtn = document.getElementById('save-task-changes-btn'),
   deleteTaskBtn = document.getElementById('delete-task-btn');
 
-
   // Call saveTaskChanges upon click of Save Changes button
   saveEditBtn.addEventListener('click', (event) => {
     event.preventDefault();
@@ -295,9 +294,9 @@ function saveTaskChanges(taskId) {
   editTaskDescInput = document.getElementById('edit-task-desc-input'),
   editSelectStatus = document.getElementById('edit-select-status');
 
-
   // Create an object with the updated task details
   const task = {
+    id : taskId,
     title: editTaskTitleInput.value,
     description: editTaskDescInput.value,
     status: editSelectStatus.value,
