@@ -19,15 +19,16 @@ function initializeData() {
 
 // TASK: Get elements from the DOM
 const elements = {
-  headerBoardName: document.getElementById('board-name'),
+  sideBar: document.getElementById('side-bar-div'),
+  headerBoardName: document.getElementById('header-board-name'),
   columnDivs: document.querySelectorAll('.column-div'),
-  hideSideBarBtn: document.getElementById('hide-sidebar-btn'),
-  showSideBarBtn: document.getElementById('show-sidebar-btn'),
-  themeSwitch: document.getElementById('theme-switch'),
-  createNewTaskBtn: document.getElementById('create-new-task-btn'),
-  modalWindow: document.getElementById('task-modal'),
+  hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
+  showSideBarBtn: document.getElementById('show-side-bar-btn'),
+  themeSwitch: document.getElementById('switch'),
+  addNewTaskBtn: document.getElementById('add-new-task-btn'),
+  modalWindow: document.getElementById('new-task-modal-window'),
   editTaskModal: document.getElementById('edit-task-modal'),
-  filterDiv: document.getElementById('filter-overlay')
+  filterDiv: document.getElementById('filterDiv')
 };
 
 let activeBoard = ""
@@ -111,7 +112,7 @@ function refreshTasksUI() {
 // Styles the active board by adding an active class
 // TASK: Fix Bugs
 function styleActiveBoard(boardName) {
-  document.querySelectorAll('.board-btn').foreach(btn => { 
+  [...document.querySelectorAll('.board-btn')].map(btn => { 
     
     if(btn.textContent === boardName) {
       btn.classList.add('active') 
@@ -188,6 +189,8 @@ function setupEventListeners() {
 // Toggles tasks modal
 // Task: Fix bugs
 function toggleModal(show, modal = elements.modalWindow) {
+  
+  // modal = (modal === null)? elements.modalWindow : modal;
   modal.style.display = show ? 'block' : 'none'; 
 }
 
@@ -225,7 +228,15 @@ function toggleSidebar(show) {
 }
 
 function toggleTheme(event) {
+  const isClicked = event.type === 'click',
+  loaded = ((typeof event === 'boolean') && !isClicked);
+  
+  const isLightTheme = (isClicked)? loaded || elements.themeSwitch.checked : document.body.classList.contains('light-theme');
   document.body.classList.toggle('light-theme');
+  console.log(loaded + " | " + isLightTheme)
+  localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled')
+  document.body.classList.toggle('light-theme', isLightTheme);
+  elements.themeSwitch.checked = isLightTheme;
 }
 
 
@@ -262,8 +273,6 @@ function openEditTaskModal(task) {
 
   // Show the edit task modal
 
-  toggleModal(true, elements.editTaskModal); // Show the edit task modal
-
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
@@ -273,13 +282,19 @@ function saveTaskChanges(taskId) {
 
 
   // Create an object with the updated task details
+  const task = {
+    title: editTaskTitleInput.value,
+    description: editTaskDescInput.value,
+    status: editSelectStatus.value,
+    board: activeBoard,
+  };
 
 
   // Update task using a hlper functoin
- 
+  patchTask(taskId, task);
 
   // Close the modal and refresh the UI to reflect the changes
-
+toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
 }
 
@@ -290,10 +305,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function init() {
+  initializeData();
   setupEventListeners();
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);
   const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
   document.body.classList.toggle('light-theme', isLightTheme);
-  fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
+  // refreshTasksUI(); // Initial display of boards and tasks
+  fetchAndDisplayBoardsAndTasks();
 }
