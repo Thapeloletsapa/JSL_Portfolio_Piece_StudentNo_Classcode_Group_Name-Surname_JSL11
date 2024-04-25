@@ -32,13 +32,6 @@ CSS
 
 This project is designed to be both challenging and rewarding, providing hands-on experience in web development. 
 
-## What You Need to Do:https://www.loom.com/share/eacc1e92221f4a8ab6c9d160241e64a9?sid=1b011c0a-36f4-4228-852b-deb3f36965a9
-
-
-# Agile Board Project Feature List
-
-In this Agile Board Project Feature List, you're introduced to a comprehensive suite of functionalities designed to enrich your Kanban Task Management App. 
-
-[text] (https://www.loom.com/share/eacc1e92221f4a8ab6c9d160241e64a9?sid=1b011c0a-36f4-4228-852b-deb3f36965a9)   
+## Visit :https://www.loom.com/share/eacc1e92221f4a8ab6c9d160241e64a9?sid=1b011c0a-36f4-4228-852b-deb3f36965a9
 
 Overall, I approached the debugging challenges by carefully examining the code and identifying the bugs, then fixing them by modifying the code and testing the changes. I also approached the user stories I needed to write from scratch by breaking them down into smaller tasks, then implementing each task one at a time. I tested each task thoroughly to ensure that it worked as expected and integrated it with the existing code.
